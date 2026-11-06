@@ -1,7 +1,28 @@
 {
   "permissions": {
     "deny": [
-      "Read(../CLAUDE.md)"
+      "Bash(git config:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(pip:*)",
+      "Read(../CLAUDE.md)",
+      "Read(//paperclip/.ssh/**)"
+    ],
+    "allow": [
+      "Bash(./resources/local-brain-search/run_connections.sh:*)",
+      "Bash(./resources/local-brain-search/run_index.sh:*)",
+      "Bash(./resources/local-brain-search/run_learning.sh:*)",
+      "Bash(./resources/local-brain-search/run_search.sh:*)",
+      "Bash(git add Brain/:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git pull --ff-only:*)",
+      "Bash(git push origin HEAD:*)",
+      "Bash(git status:*)"
     ]
   }
 }
