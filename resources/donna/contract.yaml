@@ -1,0 +1,59 @@
+# DONNA memory contract: allowed values for the pre-commit check (validate_notes.py).
+# Source of truth for the rules: DONNA-MEMORY.md in the vault root.
+# Managed from ai_stack_infra (stacks/agents/cornelius/vault); edit there, then re-run install.sh.
+
+# Business / knowledge scopes (decision D2, 2026-11-07: one vault, every note tagged).
+# Add a business here when it starts using DONNA.
+scopes:
+  - global
+  - datonum
+  - rb-home
+
+# Memory ontology v0.1 (Memory 02, ADR-0018) + supporting structures.
+knowledge_types:
+  - Fact
+  - Decision
+  - Experience
+  - Lesson
+  - Principle
+  - Preference
+  - Pattern
+  - Hypothesis
+  - Idea
+  - Outcome
+  - Entity
+  - Reference
+  - Artifact
+  - Event
+
+kinds:
+  Decision: [strategy]
+  Idea: [content_opportunity]
+
+states: [candidate, curated]
+
+provenance: [originated, endorsed, encountered, ai-inferred, reference]
+# Need an operator approval reference (donna_approved_via).
+provenance_needs_approval: [originated, endorsed]
+
+confidence: [low, medium, high]
+
+# Paperclip issue identifier, e.g. RBV-12.
+task_pattern: '^[A-Z][A-Z0-9]*-[0-9]+$'
+
+# Structural or generated folders that do not hold knowledge records.
+exempt_paths:
+  - Brain/03-MOCs/
+  - Brain/04-Output/
+  - Brain/05-Meta/
+  - Brain/00-Inbox/README.md
+
+# Frontmatter keys that may change on a curated note (everything else, and the body, is frozen:
+# a material correction is a new note with donna_supersedes).
+curated_mutable_keys:
+  - donna_valid_to
+  - donna_superseded_by
+  - donna_contradicted_by
+  - updated
+  - updated_by
+  - tags

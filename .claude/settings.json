@@ -1,6 +1,8 @@
 {
   "permissions": {
     "deny": [
+      "Bash(git commit --no-verify:*)",
+      "Bash(git commit -n:*)",
       "Bash(git config:*)",
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
@@ -8,14 +10,22 @@
       "Bash(npm:*)",
       "Bash(npx:*)",
       "Bash(pip:*)",
+      "Edit(.git/**)",
+      "Edit(DONNA-MEMORY.md)",
+      "Edit(resources/donna/**)",
       "Read(../CLAUDE.md)",
-      "Read(//paperclip/.ssh/**)"
+      "Read(//paperclip/.ssh/**)",
+      "Write(.git/**)",
+      "Write(DONNA-MEMORY.md)",
+      "Write(resources/donna/**)"
     ],
     "allow": [
+      "Bash(./resources/brain-graph/run_brain_graph.sh:*)",
       "Bash(./resources/local-brain-search/run_connections.sh:*)",
       "Bash(./resources/local-brain-search/run_index.sh:*)",
       "Bash(./resources/local-brain-search/run_learning.sh:*)",
       "Bash(./resources/local-brain-search/run_search.sh:*)",
+      "Bash(cat /proc/sys/kernel/random/uuid)",
       "Bash(git add Brain/:*)",
       "Bash(git commit:*)",
       "Bash(git diff:*)",

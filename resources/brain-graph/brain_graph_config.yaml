@@ -1,0 +1,121 @@
+# brain-graph.yaml
+# Declares artifact types, default relationships, and propagation rules
+
+artifact_types:
+  signal:
+    layer: 1
+    default_mode: reflective
+    vault_paths: [01-Sources/]
+    description: "Raw inputs - books, papers, conversations"
+    
+  impression:
+    layer: 2
+    default_mode: reflective
+    vault_paths: [00-Inbox/]
+    description: "First-pass captures, fleeting notes"
+    
+  insight:
+    layer: 3
+    default_mode: mixed  # determined by lifecycle score
+    vault_paths: [02-Permanent/, AI Extracted Notes/]
+    description: "Atomic permanent notes"
+    
+  framework:
+    layer: 4
+    default_mode: generative
+    vault_paths: [02-Permanent/]  # subset, tagged
+    description: "Original mental models and theories"
+    
+  lens:
+    layer: 5
+    default_mode: reflective
+    vault_paths: [03-MOCs/]
+    description: "Maps of content, navigational indices"
+    
+  synthesis:
+    layer: 6
+    default_mode: reflective
+    vault_paths: [04-Output/]
+    description: "Articles, essays, composed output"
+    
+  index:
+    layer: 7
+    default_mode: reflective
+    vault_paths: [05-Meta/]
+    description: "Structural meta - analysis, changelogs"
+
+default_edges:
+  # Layer 1 → 2
+  - from_type: signal
+    to_type: impression
+    edge_type: derives-from
+    authority: source  # signal is authoritative for empirical claims
+    
+  # Layer 2 → 3
+  - from_type: impression
+    to_type: insight
+    edge_type: derives-from
+    authority: target  # insight is YOUR interpretation
+    
+  # Layer 3 → 4 (emergence)
+  - from_type: insight
+    to_type: framework
+    edge_type: derives-from
+    authority: target  # framework transcends individual insights
+    
+  # Layer 4 → 3 (generation)
+  - from_type: framework
+    to_type: insight
+    edge_type: instantiates
+    authority: source  # framework drives new insights
+    
+  # Layer 3 → 5
+  - from_type: insight
+    to_type: lens
+    edge_type: derives-from
+    authority: source  # MOC reflects its member notes
+    
+  # Layer 4 → 6
+  - from_type: framework
+    to_type: synthesis
+    edge_type: instantiates
+    authority: source  # framework drives article
+    
+  # Layer 3 → 6
+  - from_type: insight
+    to_type: synthesis
+    edge_type: derives-from
+    authority: source  # insights drive article content
+
+propagation:
+  edge_decay:
+    derives-from: 0.8
+    instantiates: 0.7
+    references: 0.2
+    associates: 0.05
+    tension: 0.0
+    supersedes: 1.0
+  distance_decay: [1.0, 0.5, 0.1, 0.0]
+  hub_threshold: 50
+  staleness_threshold: 0.3
+  max_propagation_depth: 3
+
+lifecycle:
+  detection_window_days: 30
+  crystallizing_threshold: 0.3
+  generative_threshold: 0.6
+  signals:
+    citation_frequency:
+      weight: 0.3
+      crystallizing_min: 5  # citations in window
+    generative_ratio:
+      weight: 0.3
+      crystallizing_min: 1.0
+      generative_min: 2.0
+    cross_domain_reach:
+      weight: 0.25
+      crystallizing_min: 2  # distinct clusters
+      generative_min: 3
+    temporal_acceleration:
+      weight: 0.15
+      crystallizing_min: 0.0  # positive derivative

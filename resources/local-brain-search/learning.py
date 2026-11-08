@@ -180,6 +180,15 @@ def log_usage_event(event: UsageEvent) -> None:
 
     with open(path, "a") as f:
         f.write(json.dumps(event.to_dict()) + "\n")
+    # DONNA: bounded usage history
+    try:
+        if path.stat().st_size > 5_000_000:
+            lines = path.read_text().splitlines(keepends=True)[-20_000:]
+            tmp = path.with_suffix(".jsonl.tmp")
+            tmp.write_text("".join(lines))
+            tmp.replace(path)
+    except OSError:
+        pass
 
 
 def log_retrieval(

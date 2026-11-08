@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# DONNA memory contract check. Installed into .git/hooks/pre-commit by
+# ai_stack_infra/stacks/agents/cornelius/setup.sh. Rules: DONNA-MEMORY.md.
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+PY="${ROOT}/resources/local-brain-search/venv/bin/python"
+if [ ! -x "${PY}" ]; then
+  echo "DONNA memory contract: venv missing (${PY}); run install.sh. Commit blocked." >&2
+  exit 1
+fi
+exec "${PY}" -I "${ROOT}/resources/donna/validate_notes.py"

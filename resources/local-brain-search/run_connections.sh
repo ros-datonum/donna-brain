@@ -67,7 +67,7 @@ if daemon_fresh; then
     elif [ "$BRIDGES" = "true" ]; then
         RESULT=$(curl -s --max-time 30 "$DAEMON_URL/connections/bridges?scope=$ENCODED_SCOPE")
     else
-        ENCODED_Q=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$QUERY'))")
+        ENCODED_Q=$(python3 -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$QUERY")
         RESULT=$(curl -s --max-time 30 "$DAEMON_URL/connections?q=$ENCODED_Q&depth=$DEPTH&semantic_only=$SEMANTIC_ONLY&explicit_only=$EXPLICIT_ONLY&scope=$ENCODED_SCOPE")
     fi
 
