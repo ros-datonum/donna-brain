@@ -53,7 +53,8 @@ donna_contradicts: []          # donna_id values this note conflicts with
    Outcome; "next time…" = Lesson. Do not upgrade a thought into a decision.
    One note holds one claim of one type: split mixed text ("X is my main business" = Fact,
    "I hope it brings most of the income" = Hypothesis). The operator's words are split only
-   at sentence or clause boundaries, never reworded; every part keeps `originated` and the
+   at sentence or clause boundaries, never reworded (instructions in the task, like the
+   business or type to use, are metadata, not part of the quote); every part keeps `originated` and the
    same `donna_approved_via`, and the parts reference each other in `donna_sources`.
 4. **State.** New notes are `candidate`. `curated` only after the operator approved that note
    (a Paperclip decision); set `donna_approved_via` to the issue where it was approved.
