@@ -51,6 +51,10 @@ donna_contradicts: []          # donna_id values this note conflicts with
 3. **Types.** Pick `donna_type` by what the text is: "maybe / I'm considering" = Idea or
    Hypothesis; "I decided / we will" = Decision; "this worked / failed" = Experience or
    Outcome; "next time…" = Lesson. Do not upgrade a thought into a decision.
+   One note holds one claim of one type: split mixed text ("X is my main business" = Fact,
+   "I hope it brings most of the income" = Hypothesis). The operator's words are split only
+   at sentence or clause boundaries, never reworded; every part keeps `originated` and the
+   same `donna_approved_via`, and the parts reference each other in `donna_sources`.
 4. **State.** New notes are `candidate`. `curated` only after the operator approved that note
    (a Paperclip decision); set `donna_approved_via` to the issue where it was approved.
 5. **No silent overwrite.** A curated note's text and keys are frozen (only `donna_valid_to`,
